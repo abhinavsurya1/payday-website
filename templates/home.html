@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Paydayzz - India's First Digital Staffing Platform{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Hero Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 mb-3">Revolutionizing Staffing</h1>
+        <h2 class="h4 text-muted mb-4">Flexible, Digital, and Transparent</h2>
+        <p class="lead mb-4">
+            Quickly hire skilled professionals for Customer Service, Retail, Events, Hospitality, and Healthcare.
+        </p>
+        
+        {% if is_authenticated %}
+            {% if profile_type == 'client' %}
+                {% if profile.is_verified %}
+                    <div class="d-grid gap-2 d-md-block">
+                        <a href="{% url 'jobs:post_job' %}" class="btn btn-primary btn-lg me-2">Post a Job</a>
+                        <a href="{% url 'jobs:manage_jobs' %}" class="btn btn-outline-primary btn-lg">Manage Jobs</a>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        <h5>Complete Your Verification</h5>
+                        <p>Please upload required documents to verify your company and start posting jobs.</p>
+                        <a href="{% url 'profiles:client_profile' %}" class="btn btn-warning">Complete Verification</a>
+                    </div>
+                {% endif %}
+            {% elif profile_type == 'candidate' %}
+                <div class="d-grid gap-2 d-md-block">
+                    <a href="{% url 'jobs:job_list' %}" class="btn btn-primary btn-lg me-2">Browse Jobs</a>
+                    <a href="{% url 'jobs:my_applications' %}" class="btn btn-outline-primary btn-lg">My Applications</a>
+                </div>
+            {% else %}
+                {% if registration_type == 'client' %}
+                    <div class="alert alert-info">
+                        <h5>Complete Your Company Profile</h5>
+                        <p>Set up your company profile to start posting jobs:</p>
+                        <div class="d-grid gap-2 d-md-block">
+                            <a href="{% url 'profiles:client_profile' %}" class="btn btn-primary">Setup Company Profile</a>
+                        </div>
+                    </div>
+                {% elif registration_type == 'candidate' %}
+                    <div class="alert alert-info">
+                        <h5>Complete Your Candidate Profile</h5>
+                        <p>Set up your profile to start applying for jobs:</p>
+                        <div class="d-grid gap-2 d-md-block">
+                            <a href="{% url 'profiles:candidate_profile' %}" class="btn btn-primary">Setup Candidate Profile</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <div class="d-grid gap-2 d-md-block">
+                <a href="{% url 'profiles:candidate_register' %}" class="btn btn-primary btn-lg me-2">Find Jobs</a>
+                <a href="{% url 'profiles:client_register' %}" class="btn btn-outline-primary btn-lg">Post Jobs</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Features Section -->
+    <div class="row g-4 py-5">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-pencil-alt fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="h5">Staffing Simplified</h3>
+                    <p class="text-muted">Streamlined hiring process for quick and efficient staffing solutions.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-laptop-code fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="h5">Jobs Digitized</h3>
+                    <p class="text-muted">Fully digital platform for seamless recruitment and job matching.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <i class="fas fa-check-circle fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="h5">Results Guaranteed</h3>
+                    <p class="text-muted">Committed to delivering successful staffing outcomes every time.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="section-title fade-up">Who We Are</h2>
+                <div class="about-content fade-up">
+                    <div class="about-icon mb-4">
+                        <i class="fas fa-rocket fa-3x" style="color: var(--primary-color); opacity: 0.8;"></i>
+                    </div>
+                    <p class="mb-4">Our transparent, AI-driven platform connects you directly with top-tier professionals, ensuring fast, seamless staffing and guaranteed results—without the hassle.</p>
+                    <p>Welcome to PAYDAYZZ, India's first fully digitalized staffing platform designed for flexible, freelance, temporary, and contractual projects. Whether you're looking for a customer service representative for a day or a marketing team for an event, we provide fast, reliable, and transparent hiring solutions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shape-divider">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" style="fill: #ffffff;"></path>
+        </svg>
+    </div>
+</section>
+
+<!-- Mission & Vision Section -->
+<section class="mission-vision-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="mission-box fade-up">
+                    <div class="icon-bg">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="mission-vision-title">Our Mission</h3>
+                    <div class="mission-vision-content">
+                        <p>To empower students by connecting them with meaningful internships that align with their academic goals and career aspirations. Simultaneously, we strive to support businesses in finding fresh, motivated talent to bring innovative perspectives and energy to their teams.</p>
+                    </div>
+                    <div class="mission-stats mt-4">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="stat-item text-center">
+                                    <h4 class="mb-2" style="color: var(--primary-color);">500+</h4>
+                                    <p class="small text-muted mb-0">Students Placed</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-item text-center">
+                                    <h4 class="mb-2" style="color: var(--primary-color);">200+</h4>
+                                    <p class="small text-muted mb-0">Partner Companies</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="vision-box fade-up">
+                    <div class="icon-bg">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="mission-vision-title">Our Vision</h3>
+                    <div class="mission-vision-content">
+                        <p>We envision a world where every student gets the opportunity to learn, grow, and make an impact through quality internships. By fostering collaborations between educational institutions and industries, we aim to redefine the future of professional development and ensure companies have access to a diverse pool of skilled candidates.</p>
+                    </div>
+                    <div class="vision-features mt-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-check-circle me-2" style="color: var(--primary-color);"></i>
+                            <span>Quality Learning Opportunities</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-check-circle me-2" style="color: var(--primary-color);"></i>
+                            <span>Industry-Academia Partnership</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-check-circle me-2" style="color: var(--primary-color);"></i>
+                            <span>Skill Development Focus</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Paydayzz Section -->
+<section class="why-choose-section">
+    <div class="container">
+        <h2 class="why-choose-title">Why Choose Paydayzz</h2>
+        <div class="why-choose-grid">
+            <!-- Custom-Matched Placements -->
+            <div class="why-choose-card">
+                <div class="why-choose-emoji">🎯</div>
+                <h3>Custom-Matched Placements</h3>
+                <p>Paydayzz ensures that every internship is tailored to fit both the student's career goals and the company's specific needs.</p>
+                <ul class="why-choose-list">
+                    <li>For Students: We take the time to understand your academic background, skills, and aspirations to find the perfect role.</li>
+                    <li>For Employers: Our personalized matching process guarantees that you get candidates who align with your project requirements and company culture.</li>
+                </ul>
+            </div>
+
+            <!-- Comprehensive Support -->
+            <div class="why-choose-card">
+                <div class="why-choose-emoji">🤝</div>
+                <h3>Comprehensive Support</h3>
+                <p>Our involvement doesn't stop at just connecting students with employers. Paydayzz provides end-to-end support to ensure a smooth internship experience:</p>
+                <ul class="why-choose-list">
+                    <li>Onboarding: We assist both students and companies in setting expectations and ensuring a smooth start.</li>
+                    <li>Troubleshooting: If any challenges arise, we act as a mediator to resolve issues promptly.</li>
+                    <li>Feedback Mechanisms: Regular check-ins allow for continuous improvement.</li>
+                </ul>
+            </div>
+
+            <!-- Real-World Experience -->
+            <div class="why-choose-card">
+                <div class="why-choose-emoji">💼</div>
+                <h3>Real-World Experience</h3>
+                <p>Our internships are not just theoretical exercises—they are designed to provide practical, hands-on experience that prepares students for real-world challenges.</p>
+                <ul class="why-choose-list">
+                    <li>For Students: Gain exposure to workplace dynamics, industry tools, and problem-solving scenarios.</li>
+                    <li>For Employers: Students bring fresh perspectives and energy to projects, contributing innovative ideas.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Welcome Section with Video -->
+<section class="welcome-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Welcome to the PAYDAYZZ</h2>
+        <div class="video-container" style="display: flex; justify-content: center; align-items: center;">
+            <video controls style="width: 500px; height: auto;">
+                <source src="{% static 'videos/paydayzz.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mb-4">Ready to Transform Your Hiring?</h2>
+                <p class="lead mb-4">Join the digital staffing revolution with Paydayzz.</p>
+                <div class="d-flex gap-3 justify-content-center">
+                    <a href="{% url 'profiles:candidate_register' %}" class="btn btn-primary btn-lg">Get Started</a>
+                    <a href="{% url 'profiles:client_register' %}" class="btn btn-outline-primary btn-lg">Post a Job</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fadeElements = document.querySelectorAll('.fade-up');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+    
+    fadeElements.forEach(element => {
+        observer.observe(element);
+    });
+});
+</script>
+{% endblock %} 

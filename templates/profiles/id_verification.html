@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}ID Verification{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>ID Verification</h2>
+    <p>Please select the type of ID you would like to use for verification.</p>
+
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">Important Information</h4>
+        <p>To ensure the security and integrity of our platform, we require all candidates to verify their identity.</p>
+        <p class="mb-0">Please select one of the accepted ID types below to proceed with the verification process. You will be guided through the necessary steps.</p>
+    </div>
+
+    <form method="post" id="id-verification-form">
+        {% csrf_token %}
+        <input type="hidden" name="id_type" id="selected-id-type">
+        
+        <div class="row g-3">
+            {% for id_type in id_types %}
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-outline-primary btn-lg w-100 id-type-button" data-id-type="{{ id_type|lower }}">
+                        {{ id_type }}
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {# The submit button will be hidden, form submits via JS on button click #}
+        <button type="submit" class="btn btn-primary mt-4 d-none" id="submit-verification">Proceed to Verification</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.id-type-button');
+            const form = document.getElementById('id-verification-form');
+            const selectedIdTypeInput = document.getElementById('selected-id-type');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Set the hidden input value
+                    selectedIdTypeInput.value = this.getAttribute('data-id-type');
+                    
+                    // Submit the form
+                    form.submit();
+                });
+            });
+        });
+    </script>
+
+</div>
+{% endblock %} 

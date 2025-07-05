@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if job %}Edit Job{% else %}Post a New Job{% endif %} - Paydayzz{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h2 class="h4 mb-0">{% if job %}Edit Job{% else %}Post a New Job{% endif %}</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="row g-3">
+                            <!-- Job Title -->
+                            <div class="col-12">
+                                <label for="title" class="form-label">Job Title</label>
+                                <input type="text" class="form-control" id="title" name="title" 
+                                       value="{{ job.title|default:'' }}" required>
+                                <div class="invalid-feedback">
+                                    Please provide a job title.
+                                </div>
+                            </div>
+
+                            <!-- Job Type -->
+                            <div class="col-md-6">
+                                <label for="job_type" class="form-label">Job Type</label>
+                                <select class="form-select" id="job_type" name="job_type" required>
+                                    <option value="">Select job type</option>
+                                    {% for value, label in job_types %}
+                                    <option value="{{ value }}" {% if job.job_type == value %}selected{% endif %}>
+                                        {{ label }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a job type.
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="col-md-6">
+                                <label for="location" class="form-label">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" 
+                                       value="{{ job.location|default:'' }}" required>
+                                <div class="invalid-feedback">
+                                    Please provide a location.
+                                </div>
+                            </div>
+
+                            <!-- Salary Range -->
+                            <div class="col-md-6">
+                                <label for="salary_range" class="form-label">Salary Range</label>
+                                <input type="text" class="form-control" id="salary_range" name="salary_range" 
+                                       value="{{ job.salary_range|default:'' }}" placeholder="e.g., ₹20,000 - ₹50,000" required>
+                                <div class="invalid-feedback">
+                                    Please provide a salary range.
+                                </div>
+                            </div>
+
+                            <!-- Deadline -->
+                            <div class="col-md-6">
+                                <label for="deadline" class="form-label">Application Deadline</label>
+                                <input type="date" class="form-control" id="deadline" name="deadline" 
+                                       value="{{ job.deadline|date:'Y-m-d'|default:'' }}">
+                                <div class="form-text">Leave empty for no deadline</div>
+                            </div>
+
+                            <!-- Job Description -->
+                            <div class="col-12">
+                                <label for="description" class="form-label">Job Description</label>
+                                <textarea class="form-control" id="description" name="description" rows="5" required>{{ job.description|default:'' }}</textarea>
+                                <div class="invalid-feedback">
+                                    Please provide a job description.
+                                </div>
+                            </div>
+
+                            <!-- Requirements -->
+                            <div class="col-12">
+                                <label for="requirements" class="form-label">Requirements</label>
+                                <textarea class="form-control" id="requirements" name="requirements" rows="5" required>{{ job.requirements|default:'' }}</textarea>
+                                <div class="invalid-feedback">
+                                    Please provide job requirements.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                {% if job %}Update Job{% else %}Post Job{% endif %}
+                            </button>
+                            <a href="{% url 'jobs:job_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %} 

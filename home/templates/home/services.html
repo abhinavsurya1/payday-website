@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Services{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-12">
+    <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Our Services</h1>
+        <p class="text-lg text-gray-600 mb-6">
+            At Paydayzz, we offer comprehensive hiring solutions tailored for both job seekers and employers.
+        </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+        <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-2">Job Matching</h2>
+            <p class="text-gray-600">
+                Our advanced algorithm ensures job seekers find positions that align with their skills and preferences.
+            </p>
+        </div>
+        
+        <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-2">Employer Solutions</h2>
+            <p class="text-gray-600">
+                We help companies streamline their hiring process with verified candidates and seamless communication tools.
+            </p>
+        </div>
+
+        <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-2">Profile Verification</h2>
+            <p class="text-gray-600">
+                Every candidate undergoes a thorough verification process to ensure trust and reliability.
+            </p>
+        </div>
+
+        <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-2">Real-time Notifications</h2>
+            <p class="text-gray-600">
+                Get instant updates via WhatsApp and email, keeping you informed about job openings and candidate applications.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

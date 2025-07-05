@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Applications - Paydayzz{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">My Job Applications</h2>
+
+    {% if applications %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Company</th>
+                        <th>Applied Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for application in applications %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'jobs:job_detail' application.job.pk %}" class="text-decoration-none">
+                                    {{ application.job.title }}
+                                </a>
+                            </td>
+                            <td>{{ application.job.client.get_full_name }}</td>
+                            <td>{{ application.applied_at|date:"M d, Y" }}</td>
+                            <td>
+                                {% if application.status == 'PENDING' %}
+                                    <span class="badge bg-warning">Pending</span>
+                                {% elif application.status == 'SHORTLISTED' %}
+                                    <span class="badge bg-success">Shortlisted</span>
+                                {% elif application.status == 'REJECTED' %}
+                                    <span class="badge bg-danger">Rejected</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ application.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'jobs:job_detail' application.job.pk %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i> View Job
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-file-alt fa-3x text-muted mb-3"></i>
+            <h4>No Applications Yet</h4>
+            <p class="text-muted">Start applying for jobs to see your applications here.</p>
+            <a href="{% url 'jobs:job_list' %}" class="btn btn-primary">
+                <i class="fas fa-search me-2"></i>Browse Jobs
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

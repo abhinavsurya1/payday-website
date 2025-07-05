@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Register as Candidate - Paydayzz{% endblock %}
+
+{% block content %}
+<div class="registration-container">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+                <!-- Header Section -->
+                <div class="text-center mb-5">
+                    <div class="registration-icon mb-4">
+                        <i class="fas fa-user-graduate fa-3x" style="color: var(--primary-color);"></i>
+                    </div>
+                    <h1 class="registration-title">Join PayDayzz as a Candidate</h1>
+                    <p class="registration-subtitle">Start your journey to find the perfect job opportunities</p>
+                </div>
+
+                <!-- Registration Card -->
+                <div class="registration-card">
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-header bg-gradient-primary text-white text-center py-4">
+                            <h2 class="h3 mb-0">
+                                <i class="fas fa-user-plus me-2"></i>Create Your Account
+                            </h2>
+                            <p class="mb-0 mt-2 opacity-75">Fill in your details to get started</p>
+                        </div>
+                        
+                        <div class="card-body p-4 p-lg-5">
+                            <form method="post" class="needs-validation registration-form" novalidate>
+                                {% csrf_token %}
+                                
+                                <!-- Personal Information Section -->
+                                <div class="form-section mb-4">
+                                    <div class="section-header mb-3">
+                                        <h5 class="section-title">
+                                            <i class="fas fa-user me-2"></i>Personal Information
+                                        </h5>
+                                        <div class="section-line"></div>
+                                    </div>
+                                    
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            {{ form.first_name|as_crispy_field }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.last_name|as_crispy_field }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.email|as_crispy_field }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.username|as_crispy_field }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Password Section -->
+                                <div class="form-section mb-4">
+                                    <div class="section-header mb-3">
+                                        <h5 class="section-title">
+                                            <i class="fas fa-lock me-2"></i>Security
+                                        </h5>
+                                        <div class="section-line"></div>
+                                    </div>
+                                    
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            {{ form.password1|as_crispy_field }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.password2|as_crispy_field }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Terms and Conditions -->
+                                <div class="form-check mb-4">
+                                    <input class="form-check-input" type="checkbox" id="terms" required>
+                                    <label class="form-check-label" for="terms">
+                                        I agree to the <a href="#" class="text-primary">Terms and Conditions</a> and 
+                                        <a href="#" class="text-primary">Privacy Policy</a>
+                                    </label>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary btn-lg registration-btn">
+                                        <i class="fas fa-user-plus me-2"></i>Create Account
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Login Link -->
+                <div class="text-center mt-4">
+                    <p class="login-link">
+                        Already have an account? 
+                        <a href="{% url 'login' %}" class="text-primary fw-bold">
+                            <i class="fas fa-sign-in-alt me-1"></i>Sign In
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.registration-container {
+    background: linear-gradient(135deg, var(--light-bg) 0%, #ffffff 100%);
+    min-height: 100vh;
+    padding-top: 2rem;
+}
+
+.registration-icon {
+    animation: float 3s ease-in-out infinite;
+}
+
+.registration-title {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.registration-subtitle {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+.registration-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.section-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.section-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, transparent 100%);
+    border-radius: 1px;
+}
+
+/* Crispy Forms Customization */
+.form-control {
+    border: 2px solid var(--grey-accent);
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(10, 31, 63, 0.1);
+}
+
+.form-label {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.help-text {
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.registration-btn {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border: none;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.registration-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(10, 31, 63, 0.3);
+}
+
+.login-link {
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.login-link a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+    color: var(--secondary-color) !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .registration-title {
+        font-size: 2rem;
+    }
+    
+    .card-body {
+        padding: 2rem !important;
+    }
+}
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %} 

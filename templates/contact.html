@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us - PayDayzz{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mb-4">Contact Us</h2>
+            <form>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" class="form-control" id="subject" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h2 class="mb-4">Our Locations</h2>
+            <div class="mb-4">
+                <div class="mb-4">
+                    <h5>Headquarters</h5>
+                    <p>Prashant Nagar, Langar-House Circle-13<br>
+                    First Floor, Hyderabad, 500008</p>
+                </div>
+                <div class="mb-4">
+                    <h5>Partner Offices</h5>
+                    <ul class="list-unstyled">
+                        <li>Abids Road</li>
+                        <li>Banjara Hills</li>
+                    </ul>
+                </div>
+                <p><strong>Phone:</strong> 9182258315</p>
+                <p><strong>Email:</strong><br>
+                General Inquiries: info@paydayzz.com<br>
+                Hiring: hiring@paydayzz.com</p>
+            </div>
+            <div class="ratio ratio-4x3">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.410799562098!2d78.4358!3d17.3753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb97620d7c14e3%3A0x1e7cbe7a9e74f587!2sLanger%20House%2C%20Hyderabad%2C%20Telangana%20500008!5e0!3m2!1sen!2sin!4v1647043435129!5m2!1sen!2sin" 
+                        style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

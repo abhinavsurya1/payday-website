@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Profile Menu</h5>
+                    <div class="list-group">
+                        {% if user.candidate_profile %}
+                            <a href="{% url 'profiles:candidate_dashboard' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'candidate_dashboard' %}active{% endif %}">
+                                Dashboard
+                            </a>
+                            <a href="{% url 'profiles:candidate_profile' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'candidate_profile' %}active{% endif %}">
+                                My Profile
+                            </a>
+                        {% endif %}
+                        {% if user.client_profile %}
+                            <a href="{% url 'profiles:client_dashboard' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'client_dashboard' %}active{% endif %}">
+                                Dashboard
+                            </a>
+                            <a href="{% url 'profiles:client_profile' %}" class="list-group-item list-group-item-action {% if request.resolver_match.url_name == 'client_profile' %}active{% endif %}">
+                                Company Profile
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            {% block profile_content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

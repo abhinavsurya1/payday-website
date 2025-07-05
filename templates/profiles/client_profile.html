@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Company Profile - Paydayzz{% endblock %}
+
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h2 class="h4 mb-0">Company Profile</h2>
+                    {% if profile and profile.is_verified %}
+                        <div class="alert alert-success mt-2 mb-0">
+                            <i class="fas fa-check-circle me-2"></i>Your company profile is verified!
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning mt-2 mb-0">
+                            <i class="fas fa-exclamation-circle me-2"></i>Please complete your profile and upload verification documents to get verified.
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Company Information -->
+                        <h5 class="mb-3">Company Information</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.company_name.id_for_label }}" class="form-label">
+                                    Company Name <span class="text-danger">*</span>
+                                </label>
+                                {{ form.company_name }}
+                                {% if form.company_name.errors %}
+                                    <div class="invalid-feedback">{{ form.company_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.industry.id_for_label }}" class="form-label">
+                                    Industry <span class="text-danger">*</span>
+                                </label>
+                                {{ form.industry }}
+                                {% if form.industry.errors %}
+                                    <div class="invalid-feedback">{{ form.industry.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.gst_number.id_for_label }}" class="form-label">
+                                    GST Number <span class="text-danger">*</span>
+                                </label>
+                                {{ form.gst_number }}
+                                <small class="text-muted">Required for verification</small>
+                                {% if form.gst_number.errors %}
+                                    <div class="invalid-feedback">{{ form.gst_number.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.company_website.id_for_label }}" class="form-label">
+                                    Company Website
+                                </label>
+                                {{ form.company_website }}
+                                <small class="text-muted">Optional: Your company's website URL</small>
+                            </div>
+                            <div class="col-12">
+                                <label for="{{ form.company_address.id_for_label }}" class="form-label">
+                                    Company Address <span class="text-danger">*</span>
+                                </label>
+                                {{ form.company_address }}
+                                {% if form.company_address.errors %}
+                                    <div class="invalid-feedback">{{ form.company_address.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <h5 class="mb-3 mt-4">Contact Information</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.phone_number.id_for_label }}" class="form-label">
+                                    Phone Number <span class="text-danger">*</span>
+                                </label>
+                                {{ form.phone_number }}
+                                {% if form.phone_number.errors %}
+                                    <div class="invalid-feedback">{{ form.phone_number.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.whatsapp_number.id_for_label }}" class="form-label">
+                                    WhatsApp Number
+                                </label>
+                                {{ form.whatsapp_number }}
+                                <small class="text-muted">Optional: For faster communication with candidates</small>
+                            </div>
+                        </div>
+
+                        <!-- Company Logo -->
+                        <h5 class="mb-3 mt-4">Company Logo</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.company_logo.id_for_label }}" class="form-label">
+                                    Company Logo
+                                </label>
+                                {{ form.company_logo }}
+                                <small class="text-muted">Optional: Upload your company logo</small>
+                            </div>
+                        </div>
+
+                        <!-- Candidate Requirements -->
+                        <h5 class="mb-3 mt-4">Candidate Requirements</h5>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="{{ form.preferred_candidate_requirements.id_for_label }}" class="form-label">
+                                    Preferred Candidate Requirements <span class="text-danger">*</span>
+                                </label>
+                                {{ form.preferred_candidate_requirements }}
+                                <small class="text-muted">Describe your ideal candidate's skills, experience, and qualifications</small>
+                                {% if form.preferred_candidate_requirements.errors %}
+                                    <div class="invalid-feedback">{{ form.preferred_candidate_requirements.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Verification Documents -->
+                        <h5 class="mb-3 mt-4">Verification Documents</h5>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Upload Verification Documents</h6>
+                                        <p class="card-text">Please upload the following documents to verify your company:</p>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-file-alt me-2"></i>GST Certificate</li>
+                                            <li><i class="fas fa-file-alt me-2"></i>PAN Card</li>
+                                            <li><i class="fas fa-file-alt me-2"></i>Incorporation Certificate (if applicable)</li>
+                                        </ul>
+                                        <a href="{% url 'profiles:upload_verification_document' %}" class="btn btn-outline-primary">
+                                            <i class="fas fa-upload me-2"></i>Upload Documents
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save Profile
+                            </button>
+                            <a href="{% url 'profiles:client_dashboard' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+// Form validation
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %} 

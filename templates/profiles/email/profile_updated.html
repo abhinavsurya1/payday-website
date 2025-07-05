@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .content {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Profile Updated</h1>
+    </div>
+    
+    <div class="content">
+        <p>Dear {{ user.get_full_name }},</p>
+        
+        <p>Your {% if profile_type == 'candidate' %}candidate{% else %}company{% endif %} profile has been successfully updated on Paydayzz.</p>
+        
+        <p>Here's a summary of your profile:</p>
+        <ul>
+            {% if profile_type == 'candidate' %}
+                <li>Preferred Job Type: {{ profile.preferred_job_type }}</li>
+                <li>Skills: {{ profile.skills }}</li>
+                <li>Experience: {{ profile.experience }}</li>
+            {% else %}
+                <li>Company Name: {{ profile.company_name }}</li>
+                <li>Industry: {{ profile.industry }}</li>
+                <li>GST Number: {{ profile.gst_number }}</li>
+            {% endif %}
+        </ul>
+        
+        <p>You can view your complete profile and make any additional changes by clicking the button below:</p>
+        
+        <div style="text-align: center;">
+            <a href="https://paydayzz.com/profiles/{% if profile_type == 'candidate' %}candidate{% else %}client{% endif %}/dashboard/" class="button">
+                View Profile
+            </a>
+        </div>
+        
+        <p>If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
+        
+        <p>Best regards,<br>The Paydayzz Team</p>
+    </div>
+    
+    <div class="footer">
+        <p>This email was sent to {{ user.email }}. If you did not make these changes, please contact our support team immediately.</p>
+    </div>
+</body>
+</html> 

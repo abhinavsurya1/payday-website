@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Apply for {{ job.title }} - Paydayzz{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h2 class="h4 mb-0">Apply for {{ job.title }}</h2>
+                    <p class="text-muted mb-0">{{ job.client.company_name }}</p>
+                </div>
+                <div class="card-body">
+                    <!-- Job Summary -->
+                    <div class="mb-4">
+                        <h3 class="h5 mb-3">Job Summary</h3>
+                        <div class="d-flex gap-2 mb-2">
+                            <span class="badge bg-primary">{{ job.job_type }}</span>
+                            <span class="badge bg-secondary">{{ job.location }}</span>
+                            <span class="badge bg-info">{{ job.salary_range }}</span>
+                        </div>
+                        <p class="text-muted mb-0">Posted {{ job.created_at|timesince }} ago</p>
+                    </div>
+
+                    <!-- Application Form -->
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <h3 class="h5 mb-3">Your Application</h3>
+                            
+                            <!-- Cover Letter -->
+                            <div class="mb-3">
+                                <label for="cover_letter" class="form-label">Cover Letter</label>
+                                <textarea class="form-control" id="cover_letter" name="cover_letter" rows="8" required
+                                          placeholder="Write a compelling cover letter explaining why you're the perfect candidate for this position..."></textarea>
+                                <div class="invalid-feedback">
+                                    Please provide a cover letter.
+                                </div>
+                            </div>
+
+                            <!-- Resume Preview -->
+                            {% if user.candidate_profile.cv %}
+                            <div class="mb-3">
+                                <label class="form-label">Your Resume</label>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-file-pdf text-danger me-2"></i>
+                                    <a href="{{ user.candidate_profile.cv.url }}" target="_blank" class="text-decoration-none">
+                                        View Current Resume
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Submit Application</button>
+                            <a href="{% url 'jobs:job_detail' job.pk %}" class="btn btn-outline-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %} 

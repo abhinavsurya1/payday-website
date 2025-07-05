@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Job Posted Successfully{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="alert alert-success text-center">
+        <h2 class="mb-3">Job Posted Successfully!</h2>
+        <p>Your job has been added and is now visible to candidates.</p>
+        <a href="{% url 'jobs:job_list' %}" class="btn btn-primary mt-3">View All Jobs</a>
+        <a href="{% url 'jobs:post_job' %}" class="btn btn-outline-success mt-3">Post Another Job</a>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile - Paydayzz{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h2 class="h4 mb-0">Complete Your Profile</h2>
+                    {% if profile and profile.is_complete %}
+                        <div class="alert alert-success mt-2 mb-0">
+                            <i class="fas fa-check-circle me-2"></i>Your profile is complete!
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning mt-2 mb-0">
+                            <i class="fas fa-exclamation-circle me-2"></i>Please complete all required fields to make your profile visible to employers.
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Basic Information -->
+                        <h5 class="mb-3">Basic Information</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.phone_number.id_for_label }}" class="form-label">
+                                    Phone Number <span class="text-danger">*</span>
+                                </label>
+                                {{ form.phone_number }}
+                                {% if form.phone_number.errors %}
+                                    <div class="invalid-feedback">{{ form.phone_number.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.whatsapp_number.id_for_label }}" class="form-label">
+                                    WhatsApp Number
+                                </label>
+                                {{ form.whatsapp_number }}
+                                <small class="text-muted">Optional: For faster communication with employers</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.date_of_birth.id_for_label }}" class="form-label">
+                                    Date of Birth <span class="text-danger">*</span>
+                                </label>
+                                {{ form.date_of_birth }}
+                                {% if form.date_of_birth.errors %}
+                                    <div class="invalid-feedback">{{ form.date_of_birth.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.preferred_job_type.id_for_label }}" class="form-label">
+                                    Preferred Job Type <span class="text-danger">*</span>
+                                </label>
+                                {{ form.preferred_job_type }}
+                                {% if form.preferred_job_type.errors %}
+                                    <div class="invalid-feedback">{{ form.preferred_job_type.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12">
+                                <label for="{{ form.address.id_for_label }}" class="form-label">
+                                    Address <span class="text-danger">*</span>
+                                </label>
+                                {{ form.address }}
+                                {% if form.address.errors %}
+                                    <div class="invalid-feedback">{{ form.address.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Professional Information -->
+                        <h5 class="mb-3 mt-4">Professional Information</h5>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="{{ form.skills.id_for_label }}" class="form-label">
+                                    Skills <span class="text-danger">*</span>
+                                </label>
+                                {{ form.skills }}
+                                <small class="text-muted">List your key skills, separated by commas</small>
+                                {% if form.skills.errors %}
+                                    <div class="invalid-feedback">{{ form.skills.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12">
+                                <label for="{{ form.experience.id_for_label }}" class="form-label">
+                                    Experience <span class="text-danger">*</span>
+                                </label>
+                                {{ form.experience }}
+                                <small class="text-muted">Describe your work experience and achievements</small>
+                                {% if form.experience.errors %}
+                                    <div class="invalid-feedback">{{ form.experience.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Required Documents -->
+                        <h5 class="mb-3 mt-4">Required Documents</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="{{ form.cv.id_for_label }}" class="form-label">
+                                    CV/Resume <span class="text-danger">*</span>
+                                </label>
+                                {{ form.cv }}
+                                <small class="text-muted">Upload your CV in PDF or Word format</small>
+                                {% if form.cv.errors %}
+                                    <div class="invalid-feedback">{{ form.cv.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.profile_picture.id_for_label }}" class="form-label">
+                                    Profile Picture <span class="text-danger">*</span>
+                                </label>
+                                {{ form.profile_picture }}
+                                <small class="text-muted">Upload a professional headshot</small>
+                                {% if form.profile_picture.errors %}
+                                    <div class="invalid-feedback">{{ form.profile_picture.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.additional_pictures.id_for_label }}" class="form-label">
+                                    Additional Pictures
+                                </label>
+                                {{ form.additional_pictures }}
+                                <small class="text-muted">Optional: Upload additional professional pictures</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.photo_id.id_for_label }}" class="form-label">
+                                    Photo ID <span class="text-danger">*</span>
+                                </label>
+                                {{ form.photo_id }}
+                                <small class="text-muted">Upload your photo ID for verification</small>
+                                {% if form.photo_id.errors %}
+                                    <div class="invalid-feedback">{{ form.photo_id.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save Profile
+                            </button>
+                            <a href="{% url 'profiles:candidate_dashboard' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %} 

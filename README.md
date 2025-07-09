@@ -185,7 +185,7 @@ For support and questions:
 
 ## 🚀 Live Demo
 
-[Coming Soon - Deploy to Render for live demo]
+https://payday-website.onrender.com
 
 ---
 

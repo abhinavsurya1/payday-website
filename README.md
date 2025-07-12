@@ -2,6 +2,10 @@
 
 A comprehensive job portal built with Django that connects job seekers with employers. Features include user authentication, job posting, application management, and profile management.
 
+## 🚀 Live Demo
+
+https://payday-website.onrender.com
+
 ## 🚀 Features
 
 - **User Authentication**: Secure login/signup with Django AllAuth
@@ -182,10 +186,6 @@ For support and questions:
 - Create an issue on GitHub
 - Check the deployment guide
 - Review Django documentation
-
-## 🚀 Live Demo
-
-https://payday-website.onrender.com
 
 ---
 
